@@ -7,7 +7,8 @@ controle.forEach((elemento) => {
     elemento.addEventListener('click', (evento) => {
         manipulaDados(evento.target.dataset.controle, //target traz onde foi clicado => qual elemento foi clicado
              evento.target.parentNode);  //pegando  elemento pai, para acessar o filho => metodo parentNode
-        atualizaEstatisticas(evento.target.dataset.peca);
+        atualizaEstatisticas(evento.target.dataset.peca,
+            evento.target.dataset.controle);
             }); 
 })
 //pegando todos os elementos de input
@@ -22,9 +23,15 @@ function manipulaDados(operacao, elementoPai){
     }
 }
 
-function atualizaEstatisticas(peca) {
+function atualizaEstatisticas(peca, operacao) {
     estatisticas.forEach(elemento => {
+        if(operacao === '+'){
          elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
+        }else{
+            if (elemento.textContent > 0) {
+                elemento.textContent = parseInt(elemento.textContent) - pecas[peca][elemento.dataset.estatistica];
+            }
+                            }
     })    
 }
 
